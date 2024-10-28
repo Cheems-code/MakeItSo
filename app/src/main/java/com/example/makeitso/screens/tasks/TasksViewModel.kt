@@ -35,9 +35,11 @@ class TasksViewModel @Inject constructor(
   private val storageService: StorageService,
   private val configurationService: ConfigurationService
 ) : MakeItSoViewModel(logService) {
+
   val options = mutableStateOf<List<String>>(listOf())
 
-  val tasks = emptyFlow<List<Task>>()
+  // Ahora tasks se obtiene directamente del storageService
+  val tasks = storageService.tasks
 
   fun loadTaskOptions() {
     //TODO
@@ -67,3 +69,4 @@ class TasksViewModel @Inject constructor(
     launchCatching { storageService.delete(task.id) }
   }
 }
+
